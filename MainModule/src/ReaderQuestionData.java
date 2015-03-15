@@ -10,6 +10,10 @@ class WrongDataQuestEx extends Exception{
         return "Wrong data question.";
     }
 };
+enum format_type
+{
+    ROW,COLUMN,ROWS,COLUMNS
+}
 class AnswersReader{            //читает ответы в массив строк с файла
     String fname;
     String[] answers;
@@ -37,10 +41,43 @@ class AnswersReader{            //читает ответы в массив ст
 class Question{                     //готовый вопрос, который идет на выход
     String question;
     String[] answers;
+    FormatSettings formatSettings=new FormatSettings();
     public void print(){
         System.out.println(question);
-        for (int i = 0; i < answers.length; i++)
-            System.out.println("\t- " + answers[i]);
+        switch (formatSettings.getType()) {
+            case COLUMN: {
+                for (int i = 0; i < answers.length; i++)
+                    System.out.println("(_) " + answers[i]);
+                break;
+            }
+            case COLUMNS: {
+                for (int i = 1; i < answers.length+1; i++) {
+                    System.out.print("(_) " + answers[i-1]+"\t");
+                    if (i%formatSettings.getCount()==0)
+                    {
+                        System.out.println();
+                    }
+                }
+                break;
+            }
+            case ROW: {
+                for (int i = 0; i < answers.length; i++)
+                    System.out.print("(_) " + answers[i] + "\t");
+                break;
+            }
+            case ROWS: {
+                int k= answers.length/formatSettings.getCount();
+                for (int i = 1; i < answers.length+1; i++) {
+                    System.out.print("(_) " + answers[i-1]+"\t");
+                    if (i%k==0)
+                    {
+                        System.out.println();
+                    }
+                }
+                break;
+            }
+        }
+
     }
 }
 class QuestionGenerator{                //создает объект типа Question
@@ -50,6 +87,7 @@ class QuestionGenerator{                //создает объект типа Q
     int col_neg_answers;
     String[] answ_pos;
     String[] answ_neg;
+    FormatSettings formatSettings=new FormatSettings();
 
     public void print(){
         System.out.println(preambula);
@@ -58,6 +96,8 @@ class QuestionGenerator{                //создает объект типа Q
         System.out.println(col_neg_answers);
         System.out.println(Arrays.toString(answ_pos));
         System.out.println(Arrays.toString(answ_neg));
+        System.out.println(formatSettings.getType());
+        System.out.println(formatSettings.getCount());
     }
     private static void swap(String[] a, int i, int change) {
         String temp = a[i];
@@ -76,6 +116,7 @@ class QuestionGenerator{                //создает объект типа Q
     public Question make_question() throws WrongDataQuestEx{
         Question question=new Question();
         question.question=preambula;
+        question.formatSettings=formatSettings;
         if (col_answers!=col_neg_answers+col_pos_answers)
             throw new WrongDataQuestEx();
         question.answers=new String[col_answers];
@@ -106,12 +147,33 @@ class QuestionGenerator{                //создает объект типа Q
         return question;
     }
 };
+class FormatSettings
+{
+    format_type type;
+    int count;
+    public void setType(format_type t){
+        this.type=t;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public format_type getType(){
+        return type;
+    }
+    public int getCount(){
+        return count;
+    }
+}
 class QuestionParser{               //считывает вопрос и ответы с файлов и заполняет структуру
     String fname;
     String preambula;
+    FormatSettings formatSettings=new FormatSettings();
     int col_answers;
     int col_pos_answers;
     int col_neg_answers;
+
     String[] answ_pos;
     String[] answ_neg;
 
@@ -128,8 +190,34 @@ class QuestionParser{               //считывает вопрос и отв�
                     col_answers = in.nextInt();
                     col_pos_answers = in.nextInt();
                     col_neg_answers = in.nextInt();
+                    String type=in.next();
+                    if(type.equals("column"))
+                    {
+                        formatSettings.setType(format_type.COLUMN);
+                        formatSettings.setCount(0);
+                    }
+                    else
+                        if(type.equals("columns"))
+                        {
+                             formatSettings.setType(format_type.COLUMNS);
+                            formatSettings.setCount(in.nextInt());
+                        }
+                        else
+                        if(type.equals("row"))
+                        {
+                            formatSettings.setType(format_type.ROW);
+                            formatSettings.setCount(0);
+                        }
+                        else
+                        if(type.equals("rows"))
+                        {
+                            formatSettings.setType(format_type.ROWS);
+                            formatSettings.setCount(in.nextInt());
+                        }
+
                     f_pos = in.next();
                     f_neg = in.next();
+
 
             } catch (Exception e)
             {
@@ -155,6 +243,7 @@ class QuestionParser{               //считывает вопрос и отв�
         que.col_neg_answers=col_neg_answers;
         que.answ_pos=answ_pos;
         que.answ_neg=answ_neg;
+        que.formatSettings=formatSettings;
         return que;
     }
 }
