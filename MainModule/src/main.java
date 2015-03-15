@@ -64,6 +64,8 @@ class ReadedQuestion{
         Question question=new Question();
         question.question=preambula;
         question.isOK=isok;
+        if (col_answers!=col_neg_answers+col_pos_answers)
+            question.isOK=false;
         question.answers=new String[col_answers];
         shuffleArray(answ_pos);
         shuffleArray(answ_neg);

@@ -1,6 +1,6 @@
 How to do smth?
-5
-2
+6
+3
 3
 C:\Users\storo_000\Documents\GitHub\TOP\MainModule\src\answ_1+.txt
 C:\Users\storo_000\Documents\GitHub\TOP\MainModule\src\answ_1-.txt
