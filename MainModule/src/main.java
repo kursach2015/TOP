@@ -23,7 +23,7 @@ public class main extends Application {
     }
 
    //dfdsfgsdfsdfsdfsdfsd
-    //я люблю лолиту
+    //я люблю лолиту222
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException, IOException {
         String line = null;
