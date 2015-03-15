@@ -123,31 +123,23 @@ class QuestionParser{               //считывает вопрос и отв�
         String f_pos="", f_neg="";
         try {
             Scanner in = new Scanner(new File(fname));
-            if (in.hasNext())
-                preambula = in.nextLine();
-            else throw new WrongDataQuestEx();
-            if (in.hasNextInt())
-                col_answers = in.nextInt();
-            else throw new WrongDataQuestEx();
-            if (in.hasNextInt())
-                col_pos_answers = in.nextInt();
-            else throw new WrongDataQuestEx();
-            if (in.hasNextInt())
-                col_neg_answers = in.nextInt();
-            else throw new WrongDataQuestEx();
-            if (in.hasNext()) {
-                f_pos = in.next();
-            } else throw new WrongDataQuestEx();
-            if (in.hasNext())
-                f_neg = in.next();
-            else throw new WrongDataQuestEx();
-//            System.out.println(preambula+" "+col_answers+" "+col_pos_answers+" "+col_neg_answers+" "+f_pos+" "+f_neg);
+            try {
+                    preambula = in.nextLine();
+                    col_answers = in.nextInt();
+                    col_pos_answers = in.nextInt();
+                    col_neg_answers = in.nextInt();
+                    f_pos = in.next();
+                    f_neg = in.next();
+
+            } catch (Exception e)
+            {
+                throw new WrongDataQuestEx();
+            }
+
             AnswersReader answersReader=new AnswersReader(f_pos);
             answ_pos=answersReader.getAnswers();
             AnswersReader answersReader1=new AnswersReader(f_neg);
             answ_neg=answersReader1.getAnswers();
-//            System.out.println(Arrays.toString(answ_pos));
-//            System.out.println(Arrays.toString(answ_neg));
         }
         catch (FileNotFoundException e)
         {
