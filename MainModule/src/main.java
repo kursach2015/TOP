@@ -26,11 +26,15 @@ enum ReadState{OK,     //ok
 class Question{
     String question;
     String[] answers;
+    boolean isOK;
     public void print(){
-        System.out.println(question);
-        for (int i=0;i<answers.length;i++)
-            System.out.println("-"+answers[i]);
-        //System.out.println(Arrays.toString(answers));
+        if (isOK) {
+            System.out.println(question);
+            for (int i = 0; i < answers.length; i++)
+                System.out.println("-" + answers[i]);
+        }
+        else
+            System.out.println("Question is do not making or making bad.");
     }
 }
 class ReadedQuestion{
@@ -68,15 +72,32 @@ class ReadedQuestion{
     public Question make_question(){
         Question question=new Question();
         question.question=preambula;
+        question.isOK=isok;
         question.answers=new String[col_answers];
         shuffleArray(answ_pos);
         shuffleArray(answ_neg);
-        int i;
-        for (i=0;i<col_pos_answers;i++)
-            question.answers[i]=answ_pos[i];
-        for (int j=0;j<col_neg_answers;j++)
-            question.answers[i+j]=answ_neg[j];
-        shuffleArray(question.answers);
+        int i=0, j=0;
+        while (i<col_pos_answers && j<answ_pos.length){
+            if (answ_pos[j]!=null){
+                question.answers[i++]=answ_pos[j++];
+
+            }
+            else
+                j++;
+        }
+        if (i==col_pos_answers) {
+            j = 0;
+            while (i < col_answers && j < answ_neg.length) {
+                if (answ_neg[j] != null) {
+                    question.answers[i++] = answ_neg[j++];
+
+                } else
+                    j++;
+            }
+            if (i!=col_answers) question.isOK=false;
+            shuffleArray(question.answers);
+        }
+        else question.isOK=false;
         return question;
     }
 };
@@ -169,7 +190,4 @@ public class main {
         System.out.println("Question:");
         question.print();
     }
-
-
-
 }
