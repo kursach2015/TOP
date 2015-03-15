@@ -2,17 +2,8 @@
  * Created by just1ce on 15.03.2015.
  */
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import java.io.FileInputStream;
 import java.io.*;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -31,7 +22,7 @@ class Question{
         if (isOK) {
             System.out.println(question);
             for (int i = 0; i < answers.length; i++)
-                System.out.println("-" + answers[i]);
+                System.out.println("\t- " + answers[i]);
         }
         else
             System.out.println("Question is do not making or making bad.");
@@ -60,7 +51,7 @@ class ReadedQuestion{
         a[i] = a[change];
         a[change] = temp;
     }
-    public void shuffleArray(String[] a) {
+    private void shuffleArray(String[] a) {
         int n = a.length;
         Random random = new Random();
         random.nextInt();
@@ -187,7 +178,7 @@ public class main {
         //System.out.println("Readed question:");
         //readedQuestion.print();
         Question question=readedQuestion.make_question();
-        System.out.println("Question:");
+        System.out.print("1. ");
         question.print();
     }
 }
