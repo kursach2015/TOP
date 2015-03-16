@@ -1,0 +1,8 @@
+Quest10?
+8
+4
+4
+answ_10+.txt
+answ_10-.txt
+rows
+4

@@ -1,0 +1,8 @@
+Quest7?
+4
+3
+1
+answ_7+.txt
+answ_7-.txt
+rows
+2

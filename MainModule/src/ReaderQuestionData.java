@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 class WrongDataQuestEx extends Exception{
@@ -36,7 +35,7 @@ class AnswersReader{            //читает ответы в массив ст
         return answers;
     }
 }
-class Question{                     //готовый вопрос, который идет на выход
+class Question{                     //готовый вопрос
     String question;
     String[] answers;
     FormatSettings formatSettings=new FormatSettings();
@@ -45,16 +44,21 @@ class Question{                     //готовый вопрос, которы�
         switch (formatSettings.getType()) {
             case COLUMN: {
                 for (int i = 0; i < answers.length; i++)
-                    System.out.println("(_) " + answers[i]);
+                    if (i==answers.length-1)
+                        System.out.print("(_) " + answers[i]);
+                    else
+                        System.out.println("(_) " + answers[i]);
                 break;
             }
             case COLUMNS: {
-                for (int i = 1; i < answers.length+1; i++) {
+                int i;
+                for (i = 1; i < answers.length+1; i++) {
                     System.out.print("(_) " + answers[i-1]+"\t");
-                    if (i%formatSettings.getCount()==0)
+                    if (i%formatSettings.getCount()==0 && i!=answers.length)
                     {
                         System.out.println();
                     }
+
                 }
                 break;
             }
@@ -65,9 +69,10 @@ class Question{                     //готовый вопрос, которы�
             }
             case ROWS: {
                 int k= answers.length/formatSettings.getCount();
-                for (int i = 1; i < answers.length+1; i++) {
+                int i;
+                for (i = 1; i < answers.length+1; i++) {
                     System.out.print("(_) " + answers[i-1]+"\t");
-                    if (i%k==0)
+                    if (i%k==0 && i!=answers.length)
                     {
                         System.out.println();
                     }
@@ -75,7 +80,70 @@ class Question{                     //готовый вопрос, которы�
                 break;
             }
         }
+        System.out.println();
 
+    }
+    public String getQuestion(){
+        return question;
+    }
+    public String getAnswers(){
+        String res="";
+        switch (formatSettings.getType()) {
+            case COLUMN: {
+                for (int i = 0; i < answers.length; i++)
+                    if (i==answers.length-1)
+                        res+="(_) " + answers[i];
+                    else
+                        res+="(_) " + answers[i]+"\r\n";
+                break;
+            }
+            case COLUMNS: {
+                int i;
+                for (i = 1; i < answers.length+1; i++) {
+                    res+="(_) " + answers[i-1]+"\t";
+                    if (i%formatSettings.getCount()==0 && i!=answers.length)
+                    {
+                        res+="\r\n";
+                    }
+
+                }
+                break;
+            }
+            case ROW: {
+                for (int i = 0; i < answers.length; i++)
+                    res+="(_) " + answers[i] + "\t";
+                break;
+            }
+            case ROWS: {
+                int k= answers.length/formatSettings.getCount();
+                int i;
+                for (i = 1; i < answers.length+1; i++) {
+                    res+="(_) " + answers[i-1]+"\t";
+                    if (i%k==0 && i!=answers.length)
+                    {
+                        res+="\r\n";
+                    }
+                }
+                break;
+            }
+        }
+        res+="\r\n";
+        return res;
+    }
+}
+class QuestionList{                     //список вопросов. класс недоработан
+    List<Question> questionsList;
+    QuestionList(ArrayList<Question> arrayList){
+        questionsList=arrayList;
+    }
+    QuestionList(){
+        questionsList=new ArrayList<Question>();
+    }
+    public ArrayList<Question> getQuestionList(){
+        return new ArrayList<Question>(questionsList);
+    }
+    public void add_question(Question question){
+        questionsList.add(question);
     }
 }
 class QuestionGenerator{                //создает объект типа Question
@@ -188,6 +256,8 @@ class QuestionParser{               //считывает вопрос и отв�
                     col_answers = in.nextInt();
                     col_pos_answers = in.nextInt();
                     col_neg_answers = in.nextInt();
+                    f_pos = in.next();
+                    f_neg = in.next();
                     String type=in.next();
                     if(type.equals("column"))
                     {
@@ -213,8 +283,7 @@ class QuestionParser{               //считывает вопрос и отв�
                             formatSettings.setCount(in.nextInt());
                         }
 
-                    f_pos = in.next();
-                    f_neg = in.next();
+
 
 
             } catch (Exception e)
@@ -245,30 +314,41 @@ class QuestionParser{               //считывает вопрос и отв�
         return que;
     }
 }
-class Variant
+class Variant                // готовый вариант
 {
     int number;
-    List<Question> questionsList;
-    Variant(int num,ArrayList<Question> q)
+    QuestionList questionList;
+    Variant(int num,QuestionList questionList)
     {
         this.number=num;
-        this.questionsList=q;
+        this.questionList=questionList;
     }
     Variant(int num)
     {
         this.number=num;
-        questionsList= new ArrayList<Question>();
+        questionList= new QuestionList();
     }
-    public void addQuestion(Question q)
+    public void addQuestion(Question question)
     {
-        questionsList.add(q);
+        questionList.add_question(question);
     }
-    public void Print_to_console()
+    public void print_to_console()     //вывод варианта в консоль
     {
-        for(Question q :questionsList)
+        ArrayList<Question> questions=questionList.getQuestionList();
+        for(Question q :questions)
         {
             q.print();
         }
     }
-
+    public void print_to_file(String fname) throws IOException {    //запись варианта в файл
+        FileWriter fileWriter=new FileWriter(new File(fname));
+        StringWriter stringWriter=new StringWriter();
+        CharSequence charSequence="";
+        for (Question question:questionList.getQuestionList()){
+            charSequence= charSequence+question.getQuestion() + "\r\n" + question.getAnswers();
+        }
+        fileWriter.append(charSequence);
+        stringWriter.close();
+        fileWriter.close();
+    }
 }

@@ -1,8 +1,8 @@
-How to do smth?
+Quest1?
 6
 2
 4
-rows
-2
 answ_1+.txt
 answ_1-.txt
+rows
+2

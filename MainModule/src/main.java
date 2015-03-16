@@ -5,25 +5,32 @@ import java.io.*;
 public class main {
 
     public static void main(String[] args) {
-        QuestionParser questionParser=new QuestionParser("quest_1.txt");
-        try {
-            QuestionGenerator questionGenerator = questionParser.make_readed_question();
-            //System.out.println("Readed question:");
-           // questionGenerator.print();
-            Question question = questionGenerator.make_question();
-            //question.print();
-            Variant variant1=new Variant(1);
-            variant1.addQuestion(question);
-            variant1.Print_to_console();
+        String path="";
 
+        QuestionList questionList=new QuestionList();
+        for (int i = 1; i < 11; i++) {
+            path="quest_"+String.valueOf(i)+".txt";
+            QuestionParser questionParser = new QuestionParser(path);
+            try {
+                QuestionGenerator questionGenerator = questionParser.make_readed_question();
+                Question question = questionGenerator.make_question();
+                questionList.add_question(question);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                System.out.println(e.getMessage()+"№"+i);
+            } catch (WrongDataQuestEx e) {
+                e.printStackTrace();
+                System.out.println(e.getMessage()+"№"+i);
+            }
         }
-        catch (FileNotFoundException e)
-        {
-            System.out.println(e.getMessage());
+        Variant variant1 = new Variant(1,questionList);
+        variant1.print_to_console();
+        String out="output1.txt";
+        try {
+            variant1.print_to_file(out);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (WrongDataQuestEx e)
-        {
-            System.out.println(e.getMessage());
-        }
+
     }
 }
