@@ -11,8 +11,11 @@ public class main {
             //System.out.println("Readed question:");
            // questionGenerator.print();
             Question question = questionGenerator.make_question();
-            System.out.print("1. ");
-            question.print();
+            //question.print();
+            Variant variant1=new Variant(1);
+            variant1.addQuestion(question);
+            variant1.Print_to_console();
+
         }
         catch (FileNotFoundException e)
         {

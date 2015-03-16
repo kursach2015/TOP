@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 class WrongDataQuestEx extends Exception{
     @Override
@@ -246,4 +244,31 @@ class QuestionParser{               //считывает вопрос и отв�
         que.formatSettings=formatSettings;
         return que;
     }
+}
+class Variant
+{
+    int number;
+    List<Question> questionsList;
+    Variant(int num,ArrayList<Question> q)
+    {
+        this.number=num;
+        this.questionsList=q;
+    }
+    Variant(int num)
+    {
+        this.number=num;
+        questionsList= new ArrayList<Question>();
+    }
+    public void addQuestion(Question q)
+    {
+        questionsList.add(q);
+    }
+    public void Print_to_console()
+    {
+        for(Question q :questionsList)
+        {
+            q.print();
+        }
+    }
+
 }
