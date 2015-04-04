@@ -1,35 +1,35 @@
 Quest1?
-(_) Answ1-(2)	(_) Answ1-(3)	(_) Answ1+(1)	
-(_) Answ1+(3)	(_) Answ1-(1)	(_) Answ1-(4)	
+(_) Answ1+(3)	(_) Answ1-(1)	(_) Answ1-(2)	
+(_) Answ1-(3)	(_) Answ1+(2)	(_) Answ1-(4)	
 Quest2?
-(_) answ2+(4)	(_) answ2+(2)	
-(_) answ2+(3)	(_) answ2+(1)	
-(_) answ2-(1)	
+(_) answ2+(3)	(_) answ2+(2)	
+(_) answ2+(4)	(_) answ2+(1)	
+(_) answ2-(2)	
 Quest3?
-(_) answ3-(3)	(_) answ3+(1)	(_) answ3-(1)	
+(_) answ3+(1)	(_) answ3-(3)	(_) answ3-(2)	
 Quest4?
-(_) answ4+(3)
+(_) answ4+(4)
 (_) answ4-(1)
+(_) answ4+(2)
 (_) answ4-(4)
-(_) answ4+(5)
 Quest5?
-(_) answ5-(3)	(_) answ5-(5)	(_) answ5-(9)	(_) answ5-(6)	
-(_) answ5-(2)	(_) answ5-(8)	(_) answ5-(4)	(_) answ5+(1)	
+(_) answ5-(8)	(_) answ5-(1)	(_) answ5+(1)	(_) answ5-(9)	
+(_) answ5-(2)	(_) answ5-(10)	(_) answ5-(4)	(_) answ5-(7)	
 Quest6?
-(_) answ6+(3)	(_) answ6-(1)	
+(_) answ6+(3)	(_) answ6-(3)	
 Quest7?
-(_) answ7+(2)	(_) answ7-(1)	
-(_) answ7+(1)	(_) answ7+(3)	
+(_) answ7+(1)	(_) answ7+(5)	
+(_) answ7-(1)	(_) answ7+(2)	
 Quest8?
-(_) answ8-(1)	(_) answ8-(2)	(_) answ8+(1)	
+(_) answ8-(2)	(_) answ8-(1)	(_) answ8+(2)	
 Quest9?
-(_) answ9-(4)
-(_) answ9+(3)
-(_) answ9+(4)
 (_) answ9+(2)
+(_) answ9-(3)
 (_) answ9-(1)
+(_) answ9+(4)
+(_) answ9+(5)
 Quest10?
-(_) answ10+(7)	(_) answ10+(6)	
-(_) answ10+(1)	(_) answ10+(5)	
-(_) answ10-(2)	(_) answ10-(1)	
-(_) answ10-(4)	(_) answ10-(5)	
+(_) answ10-(6)	(_) answ10-(4)	
+(_) answ10+(3)	(_) answ10+(8)	
+(_) answ10+(2)	(_) answ10-(1)	
+(_) answ10+(4)	(_) answ10-(7)	
